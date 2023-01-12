@@ -2,7 +2,6 @@ import { Product } from "../../models/Product";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 import "dotenv/config";
-import express from "express";
 import mongoose from "mongoose";
 
 mongoose.set("strictQuery", false);
@@ -10,13 +9,7 @@ mongoose
   .connect(
     `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`
   )
-  .then(() => {
-    const app = express();
-    const port = process.env.PORT;
-
-    app.use(express.json());
-    app.listen(port, () => console.log(`🚀 Server is running on ${port}`));
-  })
+  .then(() => console.log("Conexão estabelecida"))
   .catch(() => console.log("Erro ao conectar ao MongoDB"));
 
 module.exports = async (req: VercelRequest, res: VercelResponse) => {
@@ -26,4 +19,6 @@ module.exports = async (req: VercelRequest, res: VercelResponse) => {
   } else {
     res.status(500);
   }
+
+  mongoose.connection.close();
 };
