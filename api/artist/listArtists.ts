@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 mongoose.set("strictQuery", false);
 mongoose
   .connect(
-    `mongodb://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`
+    `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@${process.env.MONGODB_HOST}`
   )
   .then(() => console.log("Conexão estabelecida"))
   .catch(() => console.log("Erro ao conectar ao MongoDB"));
